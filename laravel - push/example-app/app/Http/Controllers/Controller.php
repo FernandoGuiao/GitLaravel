@@ -23,17 +23,17 @@ class Controller extends BaseController
     public function create(Request $request){
 
         //porco
-
+        //dd($request);
          $username = $request->request->get('nome');
          $password = $request->request->get('password');
          $email = $request->request->get('email');
-
          $user = User::create([
              'name'=>$username, 
              'email'=>$email, 
-             'password'=>bcrypt($password)]);
+             'password'=>$password]);
          
-         return view('relatorio');
+         return json_encode(['msg'=>'cadastro feito']);    
+         //return view('relatorio');
 
     }
 
@@ -62,15 +62,15 @@ class Controller extends BaseController
 
 
     public function addRole(Request $request){
-        //dd($request);
+       // dd($request);
         //porco
         $email = $request->request->get('email');
         $password = $request->request->get('password');
         $role_req = $request->request->get('role');
 
-
-        $user = User::where([['email', '=', $email],['password','=', $password],])->firstOrFail();
-
+        //dd($password, bcrypt($password));
+        $user = User::where([['email', '=', $email],['password','=', $password]])->firstOrFail();
+        
              
         $role = new Role(['name'=> $role_req]);
 

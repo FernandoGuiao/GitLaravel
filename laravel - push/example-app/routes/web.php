@@ -39,6 +39,8 @@ Route::post('/deleteRole', 'Controller@deleteRole');
 
 
 
+
+
 // Route::post('/create' , 'Role@index');
 
 
