@@ -12,6 +12,6 @@ class Role extends Model
     //fazer isso antes de dar o migrate
 
     protected $fillable =['name'];
-
+ 
     
 }

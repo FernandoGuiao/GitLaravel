@@ -15,7 +15,7 @@
             html, body {
                 background-color: #fff;
                 color: #636b6f;
-                font-family: 'Raleway', sans-serif;
+                font-family: 'Arial', sans-serif;
                 font-weight: 100;
                 font-size: 50;
                 height: 100vh;
@@ -85,10 +85,7 @@
                 </div>
                 
                 <div class="links">
-                    <a href="./login">Login</a>
-                    <a href="./cadastro">Cadastro</a>
-                    <a href="./relatorio">Relatório</a>
-                    
+                    <a href="./cadastro">Cadastro</a>                    
                 </div>
                 
                 @yield('content')

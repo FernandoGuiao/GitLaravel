@@ -24,30 +24,38 @@ Route::get('/cadastro', function () {
 
 });
 
+
 // Route::get('/relatorio', function () {
 //     return view('relatorio');
 // });
 
-Route::post('/relatorio', 'usercontroller@index');
+Route::post('/create', 'Controller@create');
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::post('/readRole', 'Controller@readRole');
 
- Route::get('/create' , function(){
+Route::post('/addRole', 'Controller@addRole');
 
-//     //criar um usuario pelo phpmyadmin ou por esse linha:
- //    $user = User::create(['name'=>'Fernando Santana', 'email'=>'fernando.sidfjisjdf@gmom', 'password'=>bcrypt('123')]);
-//     //
-
-     $user = User::find(1);
-
-     $role = new Role(['name'=>'Guest']);
-
-     $user->roles()->save($role);
+Route::post('/deleteRole', 'Controller@deleteRole');
 
 
- });
+
+// Route::post('/create' , 'Role@index');
+
+
+// //  Route::get('/create' , function(){
+
+// // //     //criar um usuario pelo phpmyadmin ou por esse linha:
+// //  //    $user = User::create(['name'=>'Fernando Santana', 'email'=>'fernando.sidfjisjdf@gmom', 'password'=>bcrypt('123')]);
+// // //     //
+
+// //      $user = User::find(1);
+
+// //      $role = new Role(['name'=>'Guest']);
+
+// //      $user->roles()->save($role);
+
+
+// //  });
 
 Route::get('/read' , function(){
 
