@@ -7,6 +7,126 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+## ================================================================================================
+
+
+Create API
+
+
+
+- criar DB no PHP MY ADMIN - e modificar .env
+- php artisan make:model Role -m                             //v  alfabetico
+- php artisan makr:migration create_roleuser_table --create=role_user
+- database/migrations ->  incluir 2 linhas integer para a tabela pivot (user_id / role_id) (unsigned()->nullable()->index())
+                          incluir linha com o 'nome' da role na outra tabela
+- app/user.php -> public function roles(){ return $this->belongsToMany('App\Role');}
+- app/Role.php -> protected $fillable = ['name'];
+- seed user db?
+## ================================================================================================
+
+
+-routes/web ou api :
+
+Route::post('/create', 'Controller@create');
+
+Route::post('/readRole', 'Controller@readRole');
+
+Route::post('/addRole', 'Controller@addRole');
+
+Route::post('/deleteRole', 'Controller@deleteRole');
+
+
+## ================================================================================================
+
+
+- app\http\controllers
+
+    public function create(Request $request){
+
+        
+        //dd($request);
+         $username = $request->request->get('nome');
+         $password = $request->request->get('password');
+         $email = $request->request->get('email');
+         $user = User::create([
+             'name'=>$username, 
+             'email'=>$email, 
+             'password'=>$password]);
+         
+         return json_encode(['msg'=>'cadastro feito']);    
+         //return view('relatorio');
+
+    }
+
+    public function readRole(Request $request){
+
+        
+
+        $email = $request->request->get('email');
+        $password = $request->request->get('password');
+            
+
+        $user = User::where([['email', '=', $email],['password','=', $password],])->firstOrFail();
+        
+            foreach ($user->roles as $role) {
+        
+                echo $role->name . '<br>';
+                echo '<br>';
+            }
+        
+        
+            echo $user->posts;
+        
+        
+
+    }
+
+
+    public function addRole(Request $request){
+       // dd($request);
+
+        $email = $request->request->get('email');
+        $password = $request->request->get('password');
+        $role_req = $request->request->get('role');
+
+        //dd($password, bcrypt($password));
+        $user = User::where([['email', '=', $email],['password','=', $password]])->firstOrFail();
+        
+             
+        $role = new Role(['name'=> $role_req]);
+
+        $user->roles()->save($role);
+
+        return view('relatorio');
+
+    }
+
+    public function deleteRole(Request $request){
+
+        $email = $request->request->get('email');
+        $password = $request->request->get('password');
+        $role_req = $request->request->get('role');
+
+
+        $user = User::where([['email', '=', $email],['password','=', $password],])->firstOrFail();
+
+             
+        if($user->has('roles')){
+            foreach ($user->roles as $role) {
+                if($role->name == $role_req){
+                    $role->delete();
+                }
+            }    
+        }
+
+        return view('relatorio');
+
+        //deleta tudo
+        //$user->roles()->delete();
+    }
+
+$user = User::find(1)
+================================================================================================
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

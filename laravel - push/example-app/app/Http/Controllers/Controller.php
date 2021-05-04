@@ -102,14 +102,6 @@ class Controller extends BaseController
 
         //deleta tudo
         //$user->roles()->delete();
-
-    
-    
-        
-
-
-        
-
     }
 
     // public function update(Request $request){
