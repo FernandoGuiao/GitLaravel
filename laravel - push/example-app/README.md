@@ -45,7 +45,8 @@ Route::post('/deleteRole', 'Controller@deleteRole');
 
         
         //dd($request);
-         $username = $request->request->get('nome');
+         $username = $request->nome; //tambem funciona 1
+         $username = $request->request->get('nome'); //tambem funciona 2
          $password = $request->request->get('password');
          $email = $request->request->get('email');
          $user = User::create([
